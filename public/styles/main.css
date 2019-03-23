@@ -1,0 +1,107 @@
+:root {
+  --main-text-color :#011627;
+  --white: #FDFFFC;
+  --home-sec-color: #BE182D;
+  --about-sec-color: #FDFFFC;
+  --technologies-sec-color: #2EC4B6;
+  --projects-sec-color: #011627;
+  --gallery-sec-color: #FF9F1C;
+  --contact-sec-color: #2EC4B6;
+  --footer-sec-color: #011627;
+}
+
+/* font-family: 'Roboto', sans-serif;
+font-family: 'Bowlby One', cursive; */
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    top: 0;
+    left: 0;
+    color: var(--main-text-color);
+    font-family: 'Roboto', sans-serif;
+}   
+
+
+section h2{
+    font-family: 'Anton', sans-serif;
+    font-weight: 100;
+    font-size: 90px;
+    margin-top: 30px;
+    margin-bottom: 30px
+}
+
+h2, .subtitle{
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.subtitle:after{
+    background: #615966;
+    height: 1px;
+    width: 40%;
+    content: "";
+    display: block;
+    margin: 29px auto 0 auto;
+}
+
+.module{
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 0 30px;
+    box-sizing: border-box;
+    z-index: 10;
+    min-height: 100vh;
+}
+
+#home{
+    height: 100vh;
+    background-color: var(--home-sec-color);
+    font-family: 'Anton', sans-serif;
+    display: flex;
+    justify-content: center;
+
+}
+
+#home p{
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    font-size: 5em;
+    background-color: var(--white); 
+}
+
+#about{
+    background-color: var(--about-sec-color);
+
+}
+
+#technologies{
+    background-color: var(--technologies-sec-color);
+
+}
+
+#projects{
+    background-color: var(--projects-sec-color);
+
+}
+
+#gallery{
+    background-color: var(--gallery-sec-color);
+
+}
+
+#contact{
+    color: var(--white);
+    background-color: var(--contact-sec-color);
+}
+
+.sd-text-center{
+    text-align: center;
+}

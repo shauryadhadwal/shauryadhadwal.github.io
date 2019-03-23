@@ -1,0 +1,25 @@
+{
+  "name": "shauryadhadwal.github.io",
+  "version": "1.0.0",
+  "description": "Portfolio",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start -s -f . --no-notify --port 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shauryadhadwal/shauryadhadwal.github.io.git"
+  },
+  "author": "shaurya dhadwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shauryadhadwal/shauryadhadwal.github.io/issues"
+  },
+  "homepage": "https://github.com/shauryadhadwal/shauryadhadwal.github.io#readme"
+}
