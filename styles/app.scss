@@ -1,19 +1,17 @@
-:root {
-  --main-text-color :#011627;
-  --white-color: #FDFFFC;
-  --home-sec-color: #011627;
-  --about-sec-color: #FF9F1C;
-  --technologies-sec-color: #FDFFFC;
-  --projects-sec-color: #BE182D;
-  --gallery-sec-color: #FDFFFC;
-  --contact-sec-color: #2EC4B6;
-  --footer-sec-color: #011627;
-}
-
+$main-text-color :#011627;
+$white-color: #FDFFFC;
+$home-sec-color: #011627;
+$about-sec-color: #FF9F1C;
+$technologies-sec-color: #FDFFFC;
+$projects-sec-color: #BE182D;
+$gallery-sec-color: #FDFFFC;
+$contact-sec-color: #2EC4B6;
+$footer-sec-color: #011627;
 /* font-family: 'Roboto', sans-serif;
 font-family: 'Bowlby One', cursive; */
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -21,12 +19,20 @@ html, body {
     overflow: visible;
     top: 0;
     left: 0;
-    color: var(--main-text-color);
+    color: $main-text-color;
     font-family: 'Roboto', sans-serif;
-}   
+}
 
+canvas{
+  padding: 0;
+  margin:0;
+  width:100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(to left, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+}
 
-section h2{
+section h2 {
     font-family: 'Anton', sans-serif;
     font-weight: 100;
     font-size: 90px;
@@ -34,14 +40,15 @@ section h2{
     margin-bottom: 30px
 }
 
-h2, .subtitle{
+h2,
+.subtitle {
     max-width: 850px;
     margin: 0 auto;
     text-align: center;
     padding: 0 20px;
 }
 
-.subtitle:after{
+.subtitle:after {
     background: #615966;
     height: 1px;
     width: 40%;
@@ -50,7 +57,7 @@ h2, .subtitle{
     margin: 29px auto 0 auto;
 }
 
-.module{
+.module {
     position: relative;
     width: 100%;
     /* overflow-x: hidden; */
@@ -61,147 +68,125 @@ h2, .subtitle{
     /* min-height: 100vh; */
 }
 
-.sd-text-center{
+.sd-text-center {
     text-align: center;
 }
 
-/* Sections */
-
-#home{
+#home {
     height: 100vh;
-    background-color: var(--home-sec-color);
+    // background-color: $home-sec-color;
     font-family: 'Anton', sans-serif;
     display: flex;
     justify-content: center;
-    color: var(--white-color);
-}
-
-#home p{
-    width: 100%;
-    text-align: center;
-    margin: auto;
-    font-size: 5em;
-    /* background-color: var(--white-color);  */
-}
-
-#about{
-    background-color: var(--about-sec-color);
-
-}
-
-/* TECHNOLOGIES------------------------------------------------------------------ */
-
-#technologies{
-    background-color: var(--technologies-sec-color);
-    /* color: var(--white-color); */
-
-}
-#technologies .subtitle:after{
-    /* background: var(--white-color); */
-}
-
-#technologies .tech-list-container{
-    width: 100%;
-    margin: 30px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* Animate badges here */
-#technologies .badge-container{
-    display: inline-block;
-    border-radius: 5px; 
-    padding: 15px;
-    padding-bottom:30px; 
+    align-items: center;
+    color: $white-color;
     position: relative;
-    margin-bottom: 30px;
-    transition: background 200ms ease-in,
-                transform 200ms linear;
+    .myname {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+        font-size: 5em;
+        position: absolute;
+    }
 }
 
-#technologies .badge-container:hover{
-    background: #FF9F1C;
-    transform: scale(1.2); 
+#about {
+    background-color: $about-sec-color;
 }
 
-#technologies .badge-summary{
-    display: none;
-    position: absolute;
-    font-weight: 700;
-    width: 100%;
-    text-align: center;
-    left: 0px;
+/* TECHNOLOGIES */
+
+#technologies {
+    background-color: $technologies-sec-color;
+    .subtitle:after {
+    }
+    .tech-list-container {
+        width: 100%;
+        margin: 30px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        /* Animate badges here */
+        .badge-container {
+            display: inline-block;
+            border-radius: 5px;
+            padding: 15px;
+            padding-bottom: 30px;
+            position: relative;
+            margin-bottom: 30px;
+            transition: background 200ms ease-in, transform 200ms linear;
+            &:hover {
+                background: #FF9F1C;
+                transform: scale(1.2);
+                .badge-summary {
+                    display: block;
+                }
+            }
+            .badge-summary {
+                display: none;
+                position: absolute;
+                font-weight: 700;
+                width: 100%;
+                text-align: center;
+                left: 0px;
+            }
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
 }
 
-#technologies .badge-container:hover .badge-summary{
-    display: block;
+#projects {
+    background-color: $projects-sec-color;
+    color: $white-color;
 }
 
-#technologies img{
-    width: 100px;
+#projects .subtitle:after {
+    background: $white-color;
+}
+
+#gallery {
+    background-color: $gallery-sec-color;
+}
+
+#contact {
+    background-color: $contact-sec-color;
+    color: $white-color;
+}
+
+#contact .subtitle:after {
+    background: $white-color;
+}
+
+#footer {
     height: 100px;
-}
-
-
-
-
-
-#projects{
-    background-color: var(--projects-sec-color);
-    color: var(--white-color);
-}
-#projects .subtitle:after{
-    background: var(--white-color);
-}
-
-#gallery{
-    background-color: var(--gallery-sec-color);
-
-}
-
-#contact{
-    background-color: var(--contact-sec-color);
-    color: var(--white-color);
-}
-#contact .subtitle:after{
-    background: var(--white-color);
-}
-
-#footer{
-    height: 100px;
-    background-color: var(--footer-sec-color);
-    color: var(--white-color);
+    background-color: $footer-sec-color;
+    color: $white-color;
     padding: 20px 80px;
     text-align: center;
 }
 
-@media (max-width: 575px) { 
-    section h2{ 
+@media (max-width: 575px) {
+    section h2 {
         font-size: 50px;
     }
-
-    #technologies .badge-container{
+    #technologies .badge-container {
         padding: 10px;
-        padding-bottom:30px; 
+        padding-bottom: 30px;
     }
-
-    #technologies .badge-container img{
+    #technologies .badge-container img {
         width: 50px;
         height: 50px;
     }
 }
 
-@media (min-width: 576px) { 
-    
-}
+@media (min-width: 576px) {}
 
-@media (min-width: 768px) { 
-    
- }
+@media (min-width: 768px) {}
 
 /* @media (min-width: 992px) { }
 
 @media (min-width: 1200px) { } */
-

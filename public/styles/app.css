@@ -1,17 +1,7 @@
-:root {
-  --main-text-color:#011627;
-  --white-color: #FDFFFC;
-  --home-sec-color: #011627;
-  --about-sec-color: #FF9F1C;
-  --technologies-sec-color: #FDFFFC;
-  --projects-sec-color: #BE182D;
-  --gallery-sec-color: #FDFFFC;
-  --contact-sec-color: #2EC4B6;
-  --footer-sec-color: #011627; }
-
 /* font-family: 'Roboto', sans-serif;
 font-family: 'Bowlby One', cursive; */
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -19,8 +9,16 @@ html, body {
   overflow: visible;
   top: 0;
   left: 0;
-  color: var(--main-text-color);
+  color: #011627;
   font-family: 'Roboto', sans-serif; }
+
+canvas {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(to left, #051937, #004d7a, #008793, #00bf72, #a8eb12); }
 
 section h2 {
   font-family: 'Anton', sans-serif;
@@ -29,7 +27,8 @@ section h2 {
   margin-top: 30px;
   margin-bottom: 30px; }
 
-h2, .subtitle {
+h2,
+.subtitle {
   max-width: 850px;
   margin: 0 auto;
   text-align: center;
@@ -56,91 +55,80 @@ h2, .subtitle {
 .sd-text-center {
   text-align: center; }
 
-/* Sections */
 #home {
   height: 100vh;
-  background-color: var(--home-sec-color);
   font-family: 'Anton', sans-serif;
   display: flex;
   justify-content: center;
-  color: var(--white-color); }
-
-#home p {
-  width: 100%;
-  text-align: center;
-  margin: auto;
-  font-size: 5em;
-  /* background-color: var(--white-color);  */ }
+  align-items: center;
+  color: #FDFFFC;
+  position: relative; }
+  #home .myname {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    font-size: 5em;
+    position: absolute; }
 
 #about {
-  background-color: var(--about-sec-color); }
+  background-color: #FF9F1C; }
 
-/* TECHNOLOGIES------------------------------------------------------------------ */
+/* TECHNOLOGIES */
 #technologies {
-  background-color: var(--technologies-sec-color);
-  /* color: var(--white-color); */ }
-
-#technologies .subtitle:after {
-  /* background: var(--white-color); */ }
-
-#technologies .tech-list-container {
-  width: 100%;
-  margin: 30px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap; }
-
-/* Animate badges here */
-#technologies .badge-container {
-  display: inline-block;
-  border-radius: 5px;
-  padding: 15px;
-  padding-bottom: 30px;
-  position: relative;
-  margin-bottom: 30px;
-  transition: background 200ms ease-in, transform 200ms linear; }
-
-#technologies .badge-container:hover {
-  background: #FF9F1C;
-  transform: scale(1.2); }
-
-#technologies .badge-summary {
-  display: none;
-  position: absolute;
-  font-weight: 700;
-  width: 100%;
-  text-align: center;
-  left: 0px; }
-
-#technologies .badge-container:hover .badge-summary {
-  display: block; }
-
-#technologies img {
-  width: 100px;
-  height: 100px; }
+  background-color: #FDFFFC; }
+  #technologies .tech-list-container {
+    width: 100%;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Animate badges here */ }
+    #technologies .tech-list-container .badge-container {
+      display: inline-block;
+      border-radius: 5px;
+      padding: 15px;
+      padding-bottom: 30px;
+      position: relative;
+      margin-bottom: 30px;
+      transition: background 200ms ease-in, transform 200ms linear; }
+      #technologies .tech-list-container .badge-container:hover {
+        background: #FF9F1C;
+        transform: scale(1.2); }
+        #technologies .tech-list-container .badge-container:hover .badge-summary {
+          display: block; }
+      #technologies .tech-list-container .badge-container .badge-summary {
+        display: none;
+        position: absolute;
+        font-weight: 700;
+        width: 100%;
+        text-align: center;
+        left: 0px; }
+      #technologies .tech-list-container .badge-container img {
+        width: 100px;
+        height: 100px; }
 
 #projects {
-  background-color: var(--projects-sec-color);
-  color: var(--white-color); }
+  background-color: #BE182D;
+  color: #FDFFFC; }
 
 #projects .subtitle:after {
-  background: var(--white-color); }
+  background: #FDFFFC; }
 
 #gallery {
-  background-color: var(--gallery-sec-color); }
+  background-color: #FDFFFC; }
 
 #contact {
-  background-color: var(--contact-sec-color);
-  color: var(--white-color); }
+  background-color: #2EC4B6;
+  color: #FDFFFC; }
 
 #contact .subtitle:after {
-  background: var(--white-color); }
+  background: #FDFFFC; }
 
 #footer {
   height: 100px;
-  background-color: var(--footer-sec-color);
-  color: var(--white-color);
+  background-color: #011627;
+  color: #FDFFFC;
   padding: 20px 80px;
   text-align: center; }
 
