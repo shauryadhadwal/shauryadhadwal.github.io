@@ -5,86 +5,130 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Shaurya Dhadwal</title>
-	<link href="https://fonts.googleapis.com/css?family=Anton|Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Anton|Roboto|Raleway" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./public/styles/app.css">
-	<script type="text/javascript" src="./public/scripts/app.js"></script>
-
 </head>
-<body onload="init();">
-	<section id="home">
-		<p class="myname">Shaurya Dhadwal</p>
-		<canvas id="canvas"></canvas>
-	</section>
-	<section id="about" class="module">
-		<h2>About Me</h2>
-		<p class="subtitle">I am a budding Full Stack Developer.</p>
-	</section>
-	<section id="technologies" class="module">
-		<h2>Technologies</h2>
-		<p class="subtitle">My skill ratings. You know about something new and sensational? Let me know because sharing
-			is caring.</p>
-		<div class="tech-list-container">
-			<div class="badge-container">
-				<img src="./public/images/icons/angular.png" alt="">
-				<p class="badge-summary">Angular</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/bootstrap.png" alt="">
-				<p class="badge-summary">Bootstrap</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/css3.png" alt="">
-				<p class="badge-summary">CSS 3</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/git.png" alt="">
-				<p class="badge-summary">Git</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/html.png" alt="">
-				<p class="badge-summary">Html 5</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/javascript.png" alt="">
-				<p class="badge-summary">Javascript</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/node.png" alt="">
-				<p class="badge-summary">NodeJS</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/python.jpg" alt="">
-				<p class="badge-summary">Python 3</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/react.png" alt="">
-				<p class="badge-summary">ReactJS</p>
-			</div>
-			<div class="badge-container">
-				<img src="./public/images/icons/redux.png" alt="">
-				<p class="badge-summary">Redux</p>
-			</div>	
-			<div class="badge-container">
-				<img src="./public/images/icons/typescript.png" alt="">
-				<p class="badge-summary">Typescript</p>
-			</div>
-		</div>
 
-	</section>
-	<section id="projects" class="module">
-		<h2>Projects</h2>
-		<p class="subtitle">Built a few projects for the non believers. I told you I know a few things.</p>
-	</section>
-	<section id="gallery" class="module">
-		<h2>Gallery</h2>
-	</section>
-	<section id="contact" class="module">
-		<h2>Contact Me</h2>
-	</section>
-	<footer id="footer" class="module">
-		<p>© <span id="year">2019</span>. All Rights Reserved.</p>
-	</footer>
+<body>
+	<main>
+		<section id="intro" class="module">
+			<div class="intro-bg-split intro-bg-split--left"></div>
+			<div class="intro-bg-split intro-bg-split--right"></div>
+			<div id="intro-name" class="myname">
+				<p>Hey, I'm <span><strong>Shaurya Dhadwal</strong></span></p>
+				<p></p>
+			</div>
+			<div id="intro-summary" class="summary">
+				<p>A FULLSTACK DEVELOPER</p>
+			</div>
+			<div id="intro-programmer">
+				<img src="public/images/programmer.png" alt="">
+			</div>
+		</section>
+		<section id="about" class="module">
+			<div class="title">
+				<span>A</span><span>B</span><span>O</span><span>U</span><span>T</span><span
+					class="whitespace"></span><span>M</span><span>E</span>
+			</div>
+			<p class="subtitle">I am a budding Full Stack Developer.</p>
+			<div class="img-container img-container--left">
+				<img class="mouse-object" src="./public/images/objects/1.png" alt="">
+			</div>
+		</section>
+		<section id="technologies" class="module">
+			<div class="title">
+				<span>T</span><span>E</span><span>C</span><span>H</span><span>N</span><span>O</span><span>L</span><span>O</span><span>G</span><span>I</span><span>E</span><span>S</span>
+			</div>
+			<p class="subtitle">My skill ratings. You know about something new and sensational? Let me know because
+				sharing
+				is caring.</p>
+			<div class="tech-list-container">
+				<div class="badge-container">
+					<img src="./public/images/icons/angular.png" alt="">
+					<p class="badge-summary">Angular</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/bootstrap.png" alt="">
+					<p class="badge-summary">Bootstrap</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/css3.png" alt="">
+					<p class="badge-summary">CSS 3</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/git.png" alt="">
+					<p class="badge-summary">Git</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/html.png" alt="">
+					<p class="badge-summary">Html 5</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/javascript.png" alt="">
+					<p class="badge-summary">Javascript</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/node.png" alt="">
+					<p class="badge-summary">NodeJS</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/python.jpg" alt="">
+					<p class="badge-summary">Python 3</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/react.png" alt="">
+					<p class="badge-summary">ReactJS</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/redux.png" alt="">
+					<p class="badge-summary">Redux</p>
+				</div>
+				<div class="badge-container">
+					<img src="./public/images/icons/typescript.png" alt="">
+					<p class="badge-summary">Typescript</p>
+				</div>
+			</div>
+
+			<div class="img-container img-container--right">
+				<img class="mouse-object" src="./public/images/objects/2.png" alt="">
+			</div>
+		</section>
+		<section id="projects" class="module">
+			<div class="title">
+				<span>P</span><span>R</span><span>O</span><span>J</span><span>E</span><span>C</span><span>T</span><span>S</span>
+			</div>
+			<p class="subtitle">Built a few projects for the non believers. I told you I know a few things.</p>
+			<div class="img-container img-container--left">
+				<img class="mouse-object" src="./public/images/objects/3.png" alt="">
+			</div>
+		</section>
+		<section id="gallery" class="module">
+			<div class="title">
+				<span>G</span><span>A</span><span>L</span><span>L</span><span>E</span><span>R</span><span>Y</span>
+			</div>
+			<div class="img-container img-container--right">
+				<img class="mouse-object" src="./public/images/objects/4.png" alt="">
+			</div>
+		</section>
+		<section id="contact" class="module">
+			<div class="title">
+				<span>C</span><span>O</span><span>N</span><span>T</span><span>A</span><span>C</span><span>T</span>
+			</div>
+			<div class="img-container img-container--left">
+				<img class="mouse-object" src="./public/images/objects/5.png" alt="">
+			</div>
+		</section>
+		<footer id="footer" class="">
+			<p>© <span id="year">2019</span>. All Rights Reserved.</p>
+		</footer>
+		<a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by freepik -
+			www.freepik.com</a>
+		<a href="https://www.freepik.com/free-photos-vectors/technology">Technology vector created by vectorpouch -
+			www.freepik.com</a>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="./public/scripts/app.js"></script>
+	</main>
 </body>
 
 </html>
