@@ -10,11 +10,16 @@ $(window).scroll(function () {
     //Move up on scroll down
     $("#intro-summary").css("transform", "translate(0,-" + (scrollVal / 2) + "%)");
 
+    // //Move left on scroll down
+    // $("#intro .intro-bg-split--left").css("transform", "translateX(-" + (scrollVal / 10) + "%)");
+
+    // //Move left on scroll down
+    // $("#intro .intro-bg-split--right").css("transform", "translateX(" + (scrollVal / 10) + "%)");
     //Move left on scroll down
-    $("#intro .intro-bg-split--left").css("transform", "translateX(-" + (scrollVal / 10) + "%)");
+    $("#intro .intro-bg-split--left").css("transform", "translateY(-" + (scrollVal / 5) + "%)");
 
     //Move left on scroll down
-    $("#intro .intro-bg-split--right").css("transform", "translateX(" + (scrollVal / 10) + "%)");
+    $("#intro .intro-bg-split--right").css("transform", "translateY(" + (scrollVal / 5) + "%)");
 
     var aboutTop = $("#about").offset().top;
     if (aboutTop - scrollVal < 0) {
