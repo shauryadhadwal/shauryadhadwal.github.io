@@ -5,46 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIP Investment Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        font-family: Arial, sans-serif;
-        max-width: 1200px;
+        font-family: "Roboto", Arial, sans-serif;
+        max-width: 100%;
         margin: 0 auto;
         padding: 20px;
+        box-sizing: border-box;
+        background-color: #f0f4f8;
+        color: #333;
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
       }
       input {
         margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #bdc3c7;
+        border-radius: 4px;
+      }
+      label {
+        color: #34495e;
+        font-weight: bold;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #2980b9;
       }
       .summary-container {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         margin-bottom: 20px;
       }
-      .table-wrapper {
-        width: 48%;
-      }
+      .table-wrapper,
       .chart-wrapper {
-        width: 48%;
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+      .table-wrapper {
+        overflow-x: auto;
       }
       table {
         width: 100%;
         border-collapse: collapse;
+        font-size: 14px;
       }
       th,
       td {
-        border: 1px solid #ddd;
-        padding: 8px;
+        border: 1px solid #ecf0f1;
+        padding: 12px;
         text-align: left;
       }
       th {
-        background-color: #f2f2f2;
+        background-color: #3498db;
+        color: white;
       }
       .chart-container {
         width: 100%;
-        height: 400px;
+        height: 300px;
       }
       .collapsible {
-        background-color: #777;
+        background-color: #3498db;
         color: white;
         cursor: pointer;
         padding: 18px;
@@ -53,20 +93,50 @@
         text-align: left;
         outline: none;
         font-size: 15px;
+        transition: 0.4s;
+        border-radius: 4px;
       }
       .active,
       .collapsible:hover {
-        background-color: #555;
+        background-color: #2980b9;
       }
       .content {
         padding: 0 18px;
         display: none;
-        overflow: hidden;
-        background-color: #f1f1f1;
+        overflow-x: auto;
+        background-color: white;
+        border-radius: 0 0 8px 8px;
       }
       .milestone-row {
-        background-color: #e6f3ff;
+        background-color: #e8f6fd;
         font-weight: bold;
+      }
+      @media screen and (min-width: 768px) {
+        body {
+          max-width: 1200px;
+        }
+        .summary-container {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .table-wrapper,
+        .chart-wrapper {
+          width: 48%;
+        }
+        .chart-container {
+          height: 400px;
+        }
+      }
+      @media screen and (max-width: 767px) {
+        body {
+          font-size: 14px;
+        }
+        table {
+          font-size: 12px;
+        }
+        .table-wrapper {
+          overflow-x: auto;
+        }
       }
     </style>
   </head>
@@ -75,15 +145,15 @@
 
     <div>
       <label for="initialAmount">Initial Amount:</label>
-      <input type="text" id="initialAmount" value="5000000" /><br />
+      <input type="text" id="initialAmount" value="1000000" /><br />
 
       <label for="timeInYears">Time in Years:</label>
-      <input type="number" id="timeInYears" value="5" /><br />
+      <input type="number" id="timeInYears" value="20" /><br />
 
       <label for="rateOfReturn">Annual Rate of Return (%):</label>
-      <input type="number" id="rateOfReturn" value="18" /><br />
+      <input type="number" id="rateOfReturn" value="15" /><br />
 
-      <label for="annualStepUp">Annual Step-up (%):</label>
+      <label for="annualStepUp">Annual SIP Step-up (%):</label>
       <input type="number" id="annualStepUp" value="10" /><br />
 
       <label for="monthlySIP">Monthly SIP Amount:</label>
@@ -109,7 +179,7 @@
           checked
           onchange="calculateSIP()"
         />
-        Add dates from today </label
+        Show Dates </label
       ><br />
 
       <button onclick="calculateSIP()">Calculate</button>
@@ -210,13 +280,13 @@
               {
                 label: "Total Investment",
                 data: investments,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(52, 152, 219)",
                 tension: 0.1,
               },
               {
                 label: "Total Value",
                 data: totalValues,
-                borderColor: "rgb(255, 99, 132)",
+                borderColor: "rgb(231, 76, 60)",
                 tension: 0.1,
               },
             ],
