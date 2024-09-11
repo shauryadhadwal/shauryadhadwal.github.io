@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIP Investment Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      input {
+        margin-bottom: 10px;
+      }
+      .summary-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .table-wrapper {
+        width: 48%;
+      }
+      .chart-wrapper {
+        width: 48%;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .chart-container {
+        width: 100%;
+        height: 400px;
+      }
+      .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+      }
+      .active,
+      .collapsible:hover {
+        background-color: #555;
+      }
+      .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+      }
+      .milestone-row {
+        background-color: #e6f3ff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SIP Investment Calculator</h1>
+
+    <div>
+      <label for="initialAmount">Initial Amount:</label>
+      <input type="text" id="initialAmount" value="5000000" /><br />
+
+      <label for="timeInYears">Time in Years:</label>
+      <input type="number" id="timeInYears" value="5" /><br />
+
+      <label for="rateOfReturn">Annual Rate of Return (%):</label>
+      <input type="number" id="rateOfReturn" value="18" /><br />
+
+      <label for="annualStepUp">Annual Step-up (%):</label>
+      <input type="number" id="annualStepUp" value="10" /><br />
+
+      <label for="monthlySIP">Monthly SIP Amount:</label>
+      <input type="text" id="monthlySIP" value="100000" /><br />
+
+      <label for="milestoneAmount">Milestone Amount:</label>
+      <input type="text" id="milestoneAmount" value="10000000" /><br />
+
+      <label for="showMilestones">
+        <input
+          type="checkbox"
+          id="showMilestones"
+          checked
+          onchange="calculateSIP()"
+        />
+        Show milestones </label
+      ><br />
+
+      <label for="addDates">
+        <input
+          type="checkbox"
+          id="addDates"
+          checked
+          onchange="calculateSIP()"
+        />
+        Add dates from today </label
+      ><br />
+
+      <button onclick="calculateSIP()">Calculate</button>
+    </div>
+
+    <div class="summary-container">
+      <div class="table-wrapper">
+        <h2>Yearly Summary</h2>
+        <table id="yearlyTable">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Investment</th>
+              <th>Monthly SIP</th>
+              <th>Total Value</th>
+              <th id="yearlyDateHeader" style="display: none">Date</th>
+            </tr>
+          </thead>
+          <tbody id="yearlyBody"></tbody>
+        </table>
+      </div>
+      <div class="chart-wrapper">
+        <div class="chart-container">
+          <canvas id="yearlyChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="collapsible">Show Monthly Details</button>
+    <div class="content">
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Investment</th>
+            <th>Monthly SIP</th>
+            <th>Total Value</th>
+            <th id="dateHeader" style="display: none">Date</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      function formatIndianNumber(num) {
+        return num.toLocaleString("en-IN", {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        });
+      }
+
+      function formatInputValue(input) {
+        let value = input.value.replace(/,/g, "");
+        if (!isNaN(value) && value !== "") {
+          input.value = parseInt(value).toLocaleString("en-IN");
+        } else {
+          input.value = "0";
+        }
+      }
+
+      function getNumericValue(input) {
+        return parseFloat(input.value.replace(/,/g, "")) || 0;
+      }
+
+      function formatDate(date) {
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return `${date.getFullYear()} ${months[date.getMonth()]}`;
+      }
+
+      let yearlyChart;
+
+      function createYearlyChart(years, investments, totalValues) {
+        const ctx = document.getElementById("yearlyChart").getContext("2d");
+
+        if (yearlyChart) {
+          yearlyChart.destroy();
+        }
+
+        yearlyChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: years,
+            datasets: [
+              {
+                label: "Total Investment",
+                data: investments,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.1,
+              },
+              {
+                label: "Total Value",
+                data: totalValues,
+                borderColor: "rgb(255, 99, 132)",
+                tension: 0.1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function (value) {
+                    return (
+                      "₹" +
+                      value.toLocaleString("en-IN", {
+                        maximumFractionDigits: 0,
+                      })
+                    );
+                  },
+                },
+              },
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label +=
+                        "₹" +
+                        context.parsed.y.toLocaleString("en-IN", {
+                          maximumFractionDigits: 0,
+                        });
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function calculateSIP() {
+        const initialAmount = getNumericValue(
+          document.getElementById("initialAmount")
+        );
+        const timeInYears =
+          parseInt(document.getElementById("timeInYears").value) || 0;
+        const rateOfReturn =
+          (parseFloat(document.getElementById("rateOfReturn").value) || 0) /
+          100 /
+          12;
+        const annualStepUp =
+          (parseFloat(document.getElementById("annualStepUp").value) || 0) /
+          100;
+        let monthlySIP = getNumericValue(document.getElementById("monthlySIP"));
+        const milestoneAmount = getNumericValue(
+          document.getElementById("milestoneAmount")
+        );
+        const showMilestones =
+          document.getElementById("showMilestones").checked;
+        const addDates = document.getElementById("addDates").checked;
+        const startDate = new Date();
+
+        let totalMonths = timeInYears * 12;
+        let totalInvestment = initialAmount;
+        let totalValue = initialAmount;
+        let currentMilestone = milestoneAmount;
+
+        const resultBody = document.getElementById("resultBody");
+        const yearlyBody = document.getElementById("yearlyBody");
+        resultBody.innerHTML = "";
+        yearlyBody.innerHTML = "";
+
+        // Show/hide date headers
+        document.getElementById("dateHeader").style.display = addDates
+          ? ""
+          : "none";
+        document.getElementById("yearlyDateHeader").style.display = addDates
+          ? ""
+          : "none";
+
+        const years = [];
+        const investments = [];
+        const totalValues = [];
+
+        let prevTotalValue = totalValue;
+        let prevTotalInvestment = totalInvestment;
+        let prevMonthlySIP = monthlySIP;
+
+        let currentDate = new Date(startDate);
+
+        for (let month = 1; month <= totalMonths; month++) {
+          if (month > 1 && month % 12 === 1) {
+            monthlySIP *= 1 + annualStepUp;
+          }
+
+          totalInvestment += monthlySIP;
+          totalValue = (totalValue + monthlySIP) * (1 + rateOfReturn);
+
+          while (
+            totalValue >= currentMilestone &&
+            prevTotalValue < currentMilestone
+          ) {
+            // Interpolate to find exact milestone point
+            const fraction =
+              (currentMilestone - prevTotalValue) /
+              (totalValue - prevTotalValue);
+            const interpolatedMonth = month - 1 + fraction;
+            const interpolatedInvestment =
+              prevTotalInvestment +
+              (totalInvestment - prevTotalInvestment) * fraction;
+            const interpolatedSIP =
+              prevMonthlySIP + (monthlySIP - prevMonthlySIP) * fraction;
+            const interpolatedDate = new Date(currentDate);
+            interpolatedDate.setDate(
+              interpolatedDate.getDate() + Math.floor(fraction * 30)
+            ); // Approximate for partial months
+
+            addTableRow(
+              resultBody,
+              interpolatedMonth,
+              interpolatedInvestment,
+              interpolatedSIP,
+              currentMilestone,
+              addDates,
+              interpolatedDate,
+              true
+            );
+            currentMilestone += milestoneAmount;
+          }
+
+          addTableRow(
+            resultBody,
+            month,
+            totalInvestment,
+            monthlySIP,
+            totalValue,
+            addDates,
+            currentDate,
+            false
+          );
+
+          if (month % 12 === 0 || month === totalMonths) {
+            addTableRow(
+              yearlyBody,
+              Math.ceil(month / 12),
+              totalInvestment,
+              monthlySIP,
+              totalValue,
+              addDates,
+              currentDate,
+              false
+            );
+            years.push(Math.ceil(month / 12));
+            investments.push(totalInvestment);
+            totalValues.push(totalValue);
+          }
+
+          prevTotalValue = totalValue;
+          prevTotalInvestment = totalInvestment;
+          prevMonthlySIP = monthlySIP;
+
+          // Move to the next month
+          currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+
+        createYearlyChart(years, investments, totalValues);
+        toggleMilestoneRows();
+      }
+
+      function addTableRow(
+        tableBody,
+        rowNumber,
+        investment,
+        sip,
+        value,
+        addDates,
+        date,
+        isMilestone
+      ) {
+        const row = tableBody.insertRow();
+        if (isMilestone) {
+          row.classList.add("milestone-row");
+        }
+        row.insertCell(0).textContent = isMilestone
+          ? "Milestone"
+          : Math.floor(rowNumber);
+        row.insertCell(1).textContent = formatIndianNumber(investment);
+        row.insertCell(2).textContent = formatIndianNumber(sip);
+        row.insertCell(3).textContent = formatIndianNumber(value);
+        if (addDates) {
+          row.insertCell(4).textContent = formatDate(date);
+        }
+      }
+
+      function toggleMilestoneRows() {
+        const showMilestones =
+          document.getElementById("showMilestones").checked;
+        const milestoneRows = document.querySelectorAll(".milestone-row");
+        milestoneRows.forEach((row) => {
+          row.style.display = showMilestones ? "" : "none";
+        });
+      }
+
+      // Add this new function for the collapsible feature
+      function setupCollapsible() {
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+              this.textContent = "Show Monthly Details";
+            } else {
+              content.style.display = "block";
+              this.textContent = "Hide Monthly Details";
+            }
+          });
+        }
+      }
+
+      // Add event listeners to format input values
+      document
+        .getElementById("initialAmount")
+        .addEventListener("input", function () {
+          formatInputValue(this);
+        });
+
+      document
+        .getElementById("monthlySIP")
+        .addEventListener("input", function () {
+          formatInputValue(this);
+        });
+
+      document
+        .getElementById("milestoneAmount")
+        .addEventListener("input", function () {
+          formatInputValue(this);
+        });
+
+      document
+        .getElementById("showMilestones")
+        .addEventListener("change", toggleMilestoneRows);
+
+      window.addEventListener("load", function () {
+        formatInputValue(document.getElementById("initialAmount"));
+        formatInputValue(document.getElementById("monthlySIP"));
+        formatInputValue(document.getElementById("milestoneAmount"));
+        calculateSIP();
+        setupCollapsible();
+      });
+    </script>
+  </body>
+</html>
