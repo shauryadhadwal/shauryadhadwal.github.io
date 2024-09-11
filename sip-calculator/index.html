@@ -23,7 +23,8 @@
         color: #2c3e50;
         text-align: center;
       }
-      input {
+      input,
+      select {
         margin-bottom: 10px;
         width: 100%;
         padding: 10px;
@@ -138,6 +139,15 @@
     <h1>SIP Investment Calculator</h1>
 
     <div>
+      <label for="currency">Currency:</label>
+      <select id="currency" onchange="calculateSIP()">
+        <option value="en-IN" selected>Indian Rupee (₹)</option>
+        <option value="en-US">US Dollar ($)</option>
+        <option value="de-DE">Euro (€)</option>
+        <option value="en-GB">British Pound (£)</option>
+        <option value="en-SG">Singapore Dollar (S$)</option></select
+      ><br />
+
       <label for="initialAmount">Initial Amount:</label>
       <input type="text" id="initialAmount" value="1000000" /><br />
 
@@ -221,17 +231,37 @@
     </div>
 
     <script>
-      function formatIndianNumber(num) {
-        return num.toLocaleString("en-IN", {
+      function formatCurrency(num, locale) {
+        return num.toLocaleString(locale, {
+          style: "currency",
+          currency: getCurrencyCode(locale),
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         });
       }
 
+      function getCurrencyCode(locale) {
+        switch (locale) {
+          case "en-IN":
+            return "INR";
+          case "en-US":
+            return "USD";
+          case "de-DE":
+            return "EUR";
+          case "en-GB":
+            return "GBP";
+          case "en-SG":
+            return "SGD";
+          default:
+            return "INR";
+        }
+      }
+
       function formatInputValue(input) {
         let value = input.value.replace(/,/g, "");
+        const locale = document.getElementById("currency").value;
         if (!isNaN(value) && value !== "") {
-          input.value = parseInt(value).toLocaleString("en-IN");
+          input.value = parseInt(value).toLocaleString(locale);
         } else {
           input.value = "0";
         }
@@ -241,28 +271,18 @@
         return parseFloat(input.value.replace(/,/g, "")) || 0;
       }
 
-      function formatDate(date) {
-        const months = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ];
-        return `${date.getFullYear().toString()} ${months[date.getMonth()]}`;
+      function formatDate(date, locale) {
+        return date.toLocaleString(locale, {
+          year: "numeric",
+          month: "short",
+        });
       }
 
       let yearlyChart;
 
       function createYearlyChart(years, investments, totalValues) {
         const ctx = document.getElementById("yearlyChart").getContext("2d");
+        const locale = document.getElementById("currency").value;
 
         if (yearlyChart) {
           yearlyChart.destroy();
@@ -295,12 +315,7 @@
                 beginAtZero: true,
                 ticks: {
                   callback: function (value) {
-                    return (
-                      "₹" +
-                      value.toLocaleString("en-IN", {
-                        maximumFractionDigits: 0,
-                      })
-                    );
+                    return formatCurrency(value, locale);
                   },
                 },
               },
@@ -314,11 +329,7 @@
                       label += ": ";
                     }
                     if (context.parsed.y !== null) {
-                      label +=
-                        "₹" +
-                        context.parsed.y.toLocaleString("en-IN", {
-                          maximumFractionDigits: 0,
-                        });
+                      label += formatCurrency(context.parsed.y, locale);
                     }
                     return label;
                   },
@@ -350,6 +361,7 @@
           document.getElementById("showMilestones").checked;
         const addDates = document.getElementById("addDates").checked;
         const startDate = new Date();
+        const locale = document.getElementById("currency").value;
 
         let totalMonths = timeInYears * 12;
         let totalInvestment = initialAmount;
@@ -414,7 +426,8 @@
               currentMilestone,
               addDates,
               interpolatedDate,
-              true
+              true,
+              locale
             );
             currentMilestone += milestoneAmount;
           }
@@ -427,7 +440,8 @@
             totalValue,
             addDates,
             currentDate,
-            false
+            false,
+            locale
           );
 
           if (month % 12 === 0 || month === totalMonths) {
@@ -439,7 +453,8 @@
               totalValue,
               addDates,
               currentDate,
-              false
+              false,
+              locale
             );
             years.push(Math.ceil(month / 12));
             investments.push(totalInvestment);
@@ -466,7 +481,8 @@
         value,
         addDates,
         date,
-        isMilestone
+        isMilestone,
+        locale
       ) {
         const row = tableBody.insertRow();
         if (isMilestone) {
@@ -475,11 +491,11 @@
         row.insertCell(0).textContent = isMilestone
           ? "Milestone"
           : Math.floor(rowNumber);
-        row.insertCell(1).textContent = formatIndianNumber(investment);
-        row.insertCell(2).textContent = formatIndianNumber(sip);
-        row.insertCell(3).textContent = formatIndianNumber(value);
+        row.insertCell(1).textContent = formatCurrency(investment, locale);
+        row.insertCell(2).textContent = formatCurrency(sip, locale);
+        row.insertCell(3).textContent = formatCurrency(value, locale);
         if (addDates) {
-          row.insertCell(4).textContent = formatDate(date);
+          row.insertCell(4).textContent = formatDate(date, locale);
         }
       }
 
